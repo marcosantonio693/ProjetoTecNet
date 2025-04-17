@@ -1,0 +1,56 @@
+{% extends 'monitoramento/base.html' %}
+{% block content %}
+<div class="card p-4 shadow-sm">
+    <h2 class="mb-4">Editar Medição</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Nome do Cliente</label>
+            <input type="text" name="nome_cliente" class="form-control" value="{{ medicao.nome_cliente }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tipo de Fibra</label>
+        </div>
+        <select name="tipo_fibra" class="form-select">
+            <option value="FTTH" {% if medicao.tipo_fibra == "FTTH" %}selected{% endif %}>FTTH</option>
+            <option value="FTTC" {% if medicao.tipo_fibra == "FTTC" %}selected{% endif %}>FTTC</option>
+            <option value="FTTB" {% if medicao.tipo_fibra == "FTTB" %}selected{% endif %}>FTTB</option>
+        </select>
+
+        <div class="mb-3">
+            <label class="form-label">Nível de Sinal</label>
+            <input type="number" step="0.1" name="nivel_sinal" class="form-control" value="{{ medicao.nivel_sinal }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Rua</label>
+            <input type="text" name="rua" class="form-control" value="{{ medicao.rua }}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Número</label>
+            <input type="text" name="numero" class="form-control" value="{{ medicao.numero }}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Bairro</label>
+            <input type="text" name="bairro" class="form-control" value="{{ medicao.bairro }}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Cidade</label>
+            <input type="text" name="cidade" class="form-control" value="{{ medicao.cidade }}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Estado</label>
+            <input type="text" name="estado" class="form-control" value="{{ medicao.estado }}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">CEP</label>
+            <input type="text" name="cep" class="form-control" value="{{ medicao.cep }}">
+        </div>
+        <button type="submit" class="btn btn-success">Salvar Medição</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'monitoramento/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card p-4 shadow-sm">
+        <h2 class="mb-4">Nova Medição</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Nome do Cliente</label>
+                <input type="text" name="nome_cliente" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tipo de Fibra</label>
+                <select name="tipo_fibra" class="form-select">
+                    <option value="FTTH">FTTH</option>
+                    <option value="FTTC">FTTC</option>
+                    <option value="FTTB">FTTB</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nível de Sinal</label>
+                <input type="number" step="0.1" name="nivel_sinal" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Rua</label>
+                <input type="text" name="rua" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Número</label>
+                <input type="text" name="numero" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Bairro</label>
+                <input type="text" name="bairro" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Cidade</label>
+                <input type="text" name="cidade" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <input type="text" name="estado" class="form-control" maxlength="2" placeholder="RJ">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">CEP</label>
+                <input type="text" name="cep" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-success">Salvar Medição</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

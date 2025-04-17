@@ -1,0 +1,143 @@
+{% extends 'monitoramento/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card p-4 shadow-sm">
+        <h2 class="mb-4 text-center">Medições Realizadas</h2>
+
+        <!-- Seção de contagem -->
+        <div class="row mb-4 justify-content-center">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="card text-center p-4">
+                    <h5>Total de Clientes</h5>
+                    <h3 class="display-4 text-primary">{{ medicoes|length }}</h3>
+                </div>
+            </div>
+        </div>
+
+        {% if medicoes %}
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th class="text-nowrap">Cliente</th>
+                    <th class="text-nowrap">Endereço</th>
+                    <th class="text-nowrap">Tipo</th>
+                    <th class="text-nowrap text-center">Nível de Sinal</th>
+                    <th class="text-nowrap text-center">Data</th>
+                    <th class="text-nowrap">Fazer Alteração</th>
+                </tr>
+            </thead>
+                <tbody>
+                    {% for medicao in medicoes %}
+                    <tr>
+                        <td>{{ medicao.nome_cliente }}</td>
+                        <td class="text-nowrap" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;">
+                            {{ medicao.rua }}, {{ medicao.numero }} - {{ medicao.bairro }}<br>
+                            {{ medicao.cidade }} - {{ medicao.estado }}<br>{{ medicao.cep }}
+                        </td>
+                        <td class="text-nowrap">{{ medicao.tipo_fibra }}</td>
+                        <!-- Ajuste para o "Nível de Sinal" -->
+                        <td class="text-nowrap text-center" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;">
+                            {{ medicao.nivel_sinal }}
+                        </td>
+                        <td class="text-center">
+                            {{ medicao.data_medicao|date:"d/m/Y H:i" }}
+                        </td>
+                        <td>
+                            <div class="d-flex flex-column flex-md-row gap-2 justify-content-center">
+                                <a href="{% url 'editar_medicao' medicao.id %}" class="btn btn-warning btn-sm">Editar</a>
+                                <a href="{% url 'deletar_medicao' medicao.id %}" class="btn btn-danger btn-sm mt-2 mt-md-0">Deletar</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-muted">Nenhuma medição cadastrada ainda.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+<style>
+    /* Ajustes gerais para todos os dispositivos */
+    .container {
+        padding: 0 15px;
+    }
+
+    /* Smartphones (320px a 480px) */
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 10px;
+        }
+
+        .table td, .table th {
+            font-size: 10px; /* Menor tamanho de texto */
+            padding: 8px; /* Ajuste do espaçamento */
+        }
+
+        .btn {
+            font-size: 10px;
+            padding: 6px 10px; /* Botões menores */
+        }
+
+        .table-responsive {
+            -webkit-overflow-scrolling: touch;
+            overflow-x: auto;
+        }
+    }
+
+    /* Tablets (481px a 768px) */
+    @media (min-width: 481px) and (max-width: 768px) {
+        .table td, .table th {
+            font-size: 12px; /* Tamanho de texto ajustado */
+        }
+
+        .btn {
+            font-size: 12px; /* Botões ajustados */
+            padding: 8px 12px; /* Padding ajustado */
+        }
+
+        .table-responsive {
+            -webkit-overflow-scrolling: touch;
+            overflow-x: auto;
+        }
+    }
+
+    /* Notebooks (769px a 1024px) */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .table td, .table th {
+            font-size: 14px; /* Texto maior para telas de notebook */
+        }
+
+        .btn {
+            font-size: 14px;
+            padding: 10px 14px;
+        }
+
+        .table-responsive {
+            -webkit-overflow-scrolling: touch;
+            overflow-x: auto;
+        }
+    }
+
+    /* Computadores (Desktops - Acima de 1025px) */
+    @media (min-width: 1025px) {
+        .table td, .table th {
+            font-size: 16px; /* Tamanho de texto ideal para desktops */
+        }
+
+        .btn {
+            font-size: 16px;
+            padding: 12px 16px;
+        }
+
+        .table-responsive {
+            -webkit-overflow-scrolling: touch;
+            overflow-x: auto;
+        }
+    }
+</style>
